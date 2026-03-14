@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>rejihuixiang · 视频档案</title>
+    <title>rejihuixiang · 视频</title>
     <style>
-        /* 高冷基调：黑灰白 + 极细字体 + 克制留白 */
+        /* 极简高冷：全黑背景，只有视频，没有多余文字 */
         * {
             margin: 0;
             padding: 0;
@@ -14,94 +14,42 @@
 
         body {
             background-color: #0a0a0a;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            color: #e5e5e5;
-            line-height: 1.6;
-            font-weight: 300;
-            letter-spacing: 0.3px;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        /* 用容器让视频居中，并保留一点呼吸空间 */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            width: 100%;
+            flex: 1;
             display: flex;
             flex-direction: column;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 4rem;
-            width: 100%;
-            flex: 1;
-        }
-
-        /* 头部：一条细线 + 冷淡标识 */
-        header {
-            margin-bottom: 4rem;
-            border-bottom: 1px solid #2a2a2a;
-            padding-bottom: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
+        /* 只有一条极细的线作为标题，几乎看不见但保持调性 */
         .site-title {
-            font-size: 1.2rem;
-            font-weight: 350;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 1rem;
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #4f4f4f;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            color: #9f9f9f;
         }
 
-        .site-title span {
-            color: #4a4a4a;
-            margin: 0 0.5rem;
-        }
-
-        .meta-nav {
-            font-size: 0.85rem;
-            color: #5f5f5f;
-            display: flex;
-            gap: 2rem;
-        }
-
-        .meta-nav a {
-            color: #7f7f7f;
-            text-decoration: none;
-            transition: color 0.15s;
-            font-weight: 350;
-        }
-
-        .meta-nav a:hover {
-            color: #d0d0d0;
-        }
-
-        /* 视频播放区域 */
-        .video-player-section {
-            margin-bottom: 3rem;
-        }
-
-        .video-label {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            color: #6f6f6f;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .video-label .current {
-            color: #b0b0b0;
-            border-bottom: 1px solid #3f3f3f;
-            padding-bottom: 0.3rem;
-        }
-
-        /* 视频容器：16:9，黑底 */
+        /* 视频容器：16:9，黑底，轻微边框 */
         .video-wrapper {
             aspect-ratio: 16 / 9;
             width: 100%;
             background: #000;
             border: 1px solid #2a2a2a;
-            box-shadow: 0 10px 30px -15px rgba(0,0,0,0.8);
+            box-shadow: 0 10px 30px -15px #000;
         }
 
         .video-wrapper iframe {
@@ -111,286 +59,42 @@
             border: none;
         }
 
-        /* 视频元数据：极简线条 */
-        .video-meta {
-            display: flex;
-            gap: 2.5rem;
-            margin: 1.5rem 0 3rem 0;
-            padding: 0.8rem 0;
-            border-bottom: 1px solid #242424;
-            font-size: 0.85rem;
-            color: #8a8a8a;
-        }
-
-        .video-meta div {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .stat-dot {
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #4f4f4f;
-            margin-right: 6px;
-        }
-
-        .sep {
-            color: #3f3f3f;
-            font-weight: 300;
-            margin: 0 4px;
-        }
-
-        /* 视频网格 —— 冷静克制 */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-
-        .grid-header {
-            grid-column: 1 / -1;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-            color: #6f6f6f;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 1px solid #242424;
-            padding-bottom: 0.8rem;
-        }
-
-        .grid-header .count {
-            color: #3f3f3f;
-        }
-
-        /* 每个视频项：只有线条，没有阴影卡片 */
-        .video-item {
-            cursor: pointer;
-            transition: opacity 0.2s;
-            border: 1px solid #242424;
-            background: #0c0c0c;
-        }
-
-        .video-item:hover {
-            opacity: 0.8;
-            border-color: #4f4f4f;
-        }
-
-        .video-thumb {
-            aspect-ratio: 16 / 9;
-            background: #101010;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #2f2f2f;
-            font-size: 0.8rem;
-            border-bottom: 1px solid #242424;
-            position: relative;
-        }
-
-        .video-thumb::after {
-            content: "▶";
-            position: absolute;
-            font-size: 1.5rem;
-            color: #3f3f3f;
-            opacity: 0.5;
-            transition: opacity 0.15s;
-        }
-
-        .video-item:hover .video-thumb::after {
-            opacity: 1;
-            color: #9f9f9f;
-        }
-
-        .video-info {
-            padding: 1rem;
-        }
-
-        .video-title {
-            font-size: 0.95rem;
-            font-weight: 350;
-            color: #d0d0d0;
-            margin-bottom: 0.3rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .video-sub {
-            font-size: 0.7rem;
-            color: #5f5f5f;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* 脚注：非常轻 */
+        /* 极简脚注，只有最必要的信息 */
         footer {
-            margin-top: 5rem;
+            margin-top: 2rem;
             border-top: 1px solid #1f1f1f;
-            padding-top: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            color: #4f4f4f;
-            font-size: 0.75rem;
+            padding-top: 1rem;
+            color: #3f3f3f;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-align: right;
         }
 
-        footer a {
-            color: #6f6f6f;
-            text-decoration: none;
-            border-bottom: 1px solid #2f2f2f;
-        }
-
-        footer a:hover {
-            color: #cfcfcf;
-            border-bottom-color: #7f7f7f;
-        }
-
-        /* 响应式 */
-        @media (max-width: 900px) {
-            .container { padding: 2rem; }
-            .video-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
+        /* 响应式：小屏时减少边距 */
         @media (max-width: 600px) {
-            .container { padding: 1.5rem; }
-            .video-grid { grid-template-columns: 1fr; }
-            header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .container { padding: 1rem; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="site-title">
-                REJIHUIXIANG <span>//</span> VIDEO
-            </div>
-            <div class="meta-nav">
-                <a href="#">索引</a>
-                <a href="#">序列</a>
-                <a href="#">关于</a>
-            </div>
-        </header>
+        <!-- 几乎看不见的标题，只为保留一丝气息 -->
+        <div class="site-title">REJIHUIXIANG // VIDEO</div>
 
-        <main>
-            <!-- ========== 视频播放区域 ========== -->
-            <div class="video-player-section">
-                <div class="video-label">
-                    <span class="current">正在播放</span>
-                </div>
+        <!-- 视频播放器 —— 主角 -->
+        <div class="video-wrapper">
+            <!-- 您指定的B站嵌入代码，已优化参数（关弹幕、默认高清） -->
+            <iframe 
+                src="//player.bilibili.com/player.html?bvid=BV1n46nBoE2C&p=1&autoplay=0&danmaku=0&high_quality=1&as_wide=1"
+                allowfullscreen>
+            </iframe>
+        </div>
 
-                <!-- B站嵌入框 -->
-                <div class="video-wrapper">
-                    <iframe 
-                        src="//player.bilibili.com/player.html?isOutside=true&bvid=<iframe 
-    src="//player.bilibili.com/player.html?bvid=BV1n46nBoE2C&p=1&autoplay=0&danmaku=0&high_quality=1&as_wide=1"
-    allowfullscreen="true"
-    style="border:none; width:100%; height:100%; display:block;">
-</iframe>&p=1&autoplay=0&danmaku=0"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-
-                <!-- 视频元数据（可随意修改或删除） -->
-                <div class="video-meta">
-                    <div><span class="stat-dot"></span> 4K · 24fps</div>
-                    <div><span class="sep">/</span> H.264</div>
-                    <div><span class="sep">/</span> 立体声</div>
-                    <div><span class="sep">/</span> 2026.03</div>
-                </div>
-            </div>
-
-            <!-- ========== 视频列表网格 ========== -->
-            <div class="video-grid">
-                <div class="grid-header">
-                    <span>所有片段</span>
-                    <span class="count">6个项目</span>
-                </div>
-
-                <!-- 视频项 1（点击可换成其他B站视频） -->
-                <div class="video-item" onclick="changeVideo('改成B站视频ID1')"
-    style="border:none; width:100%; height:100%; display:block;">
-</iframe>">
-                    <div class="video-thumb"></div>
-                    <div class="video-info">
-                        <div class="video-title">REJIHUIXIANG_001</div>
-                        <div class="video-sub">4K · 00:42</div>
-                    </div>
-                </div>
-
-                <!-- 视频项 2 -->
-                <div class="video-item" onclick="changeVideo('改成B站视频ID2')">
-                    <div class="video-thumb"></div>
-                    <div class="video-info">
-                        <div class="video-title">REJIHUIXIANG_002</div>
-                        <div class="video-sub">4K · 01:23</div>
-                    </div>
-                </div>
-
-                <!-- 视频项 3 -->
-                <div class="video-item" onclick="changeVideo('改成B站视频ID3')">
-                    <div class="video-thumb"></div>
-                    <div class="video-info">
-                        <div class="video-title">素材_海岸线</div>
-                        <div class="video-sub">1080p · 03:15</div>
-                    </div>
-                </div>
-
-                <!-- 视频项 4 -->
-                <div class="video-item" onclick="changeVideo('改成B站视频ID4')">
-                    <div class="video-thumb"></div>
-                    <div class="video-info">
-                        <div class="video-title">素材_结构</div>
-                        <div class="video-sub">4K · 05:07</div>
-                    </div>
-                </div>
-
-                <!-- 视频项 5 -->
-                <div class="video-item" onclick="changeVideo('改成B站视频ID5')">
-                    <div class="video-thumb"></div>
-                    <div class="video-info">
-                        <div class="video-title">REJIHUIXIANG_005</div>
-                        <div class="video-sub">HD · 00:58</div>
-                    </div>
-                </div>
-
-                <!-- 视频项 6 -->
-                <div class="video-item" onclick="changeVideo('改成B站视频ID6')">
-                    <div class="video-thumb"></div>
-                    <div class="video-info">
-                        <div class="video-title">未命名_06</div>
-                        <div class="video-sub">4K · 02:34</div>
-                    </div>
-                </div>
-            </div>
-        </main>
-
+        <!-- 极简脚注 -->
         <footer>
-            <div>© 2026 REJIHUIXIANG</div>
-            <div>编辑: <a href="#">heatdeath2000</a> · 源文件: <a href="#">GitHub</a></div>
+            <span>© 2026</span>
         </footer>
     </div>
-
-    <script>
-        // 切换视频函数：点击网格中的视频项，更换主播放器的B站视频ID
-        function changeVideo(bvid) {
-            const iframe = document.querySelector('.video-wrapper iframe');
-            // 替换src中的bvid参数
-            let src = iframe.src;
-            // 简单替换（适用于当前参数格式）
-            src = src.replace(/bvid=[^&]+/, 'bvid=' + bvid);
-            iframe.src = src;
-        }
-
-        // 安静的控制台提醒
-        console.log('高冷但不傻子 · 视频页面。请修改B站视频ID。');
-    </script>
 </body>
 </html>
