@@ -14,7 +14,7 @@
 
         body {
             background-color: #0a0a0a;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             color: #e5e5e5;
             line-height: 1.6;
             font-weight: 300;
@@ -24,7 +24,6 @@
             flex-direction: column;
         }
 
-        /* 主容器：冷静的宽幅留白 */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -33,7 +32,7 @@
             flex: 1;
         }
 
-        /* 头部 · 只有一条细线和冷淡的标识 */
+        /* 头部：一条细线 + 冷淡标识 */
         header {
             margin-bottom: 4rem;
             border-bottom: 1px solid #2a2a2a;
@@ -74,7 +73,7 @@
             color: #d0d0d0;
         }
 
-        /* 主视频区：安静地大，不喧哗 */
+        /* 视频播放区域 */
         .video-player-section {
             margin-bottom: 3rem;
         }
@@ -96,22 +95,23 @@
             padding-bottom: 0.3rem;
         }
 
+        /* 视频容器：16:9，黑底 */
         .video-wrapper {
             aspect-ratio: 16 / 9;
             width: 100%;
-            background: #000000;
+            background: #000;
             border: 1px solid #2a2a2a;
             box-shadow: 0 10px 30px -15px rgba(0,0,0,0.8);
         }
 
-        video {
+        .video-wrapper iframe {
             width: 100%;
             height: 100%;
             display: block;
-            background: #0f0f0f;
+            border: none;
         }
 
-        /* 视频信息：极简，只有必要的数据 */
+        /* 视频元数据：极简线条 */
         .video-meta {
             display: flex;
             gap: 2.5rem;
@@ -128,12 +128,22 @@
             gap: 6px;
         }
 
-        .video-meta .sep {
-            color: #3f3f3f;
-            font-weight: 300;
+        .stat-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #4f4f4f;
+            margin-right: 6px;
         }
 
-        /* 视频列表 —— 冷静的网格，没有花哨卡片阴影 */
+        .sep {
+            color: #3f3f3f;
+            font-weight: 300;
+            margin: 0 4px;
+        }
+
+        /* 视频网格 —— 冷静克制 */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -159,7 +169,7 @@
             color: #3f3f3f;
         }
 
-        /* 每个视频项：只有线条、比例、极少文字 */
+        /* 每个视频项：只有线条，没有阴影卡片 */
         .video-item {
             cursor: pointer;
             transition: opacity 0.2s;
@@ -243,17 +253,7 @@
             border-bottom-color: #7f7f7f;
         }
 
-        /* 占位符图标用纯css，不引入字体图标 */
-        .stat-dot {
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #4f4f4f;
-            margin-right: 6px;
-        }
-
-        /* 响应式：冷淡但规矩 */
+        /* 响应式 */
         @media (max-width: 900px) {
             .container { padding: 2rem; }
             .video-grid { grid-template-columns: repeat(2, 1fr); }
@@ -279,47 +279,43 @@
             </div>
         </header>
 
-       <main>
-    <!-- 当前播放区域 -->
-    <div class="video-player-section">
-        <div class="video-label">
-            <span class="current">正在播放</span>
-            <!-- 去掉时间显示，更干净 -->
-        </div>
-        
-        <!-- B站视频嵌入 -->
-        <div class="video-wrapper" style="padding:0; background:#000;">
-            <iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1e7RRYHELi&p=1&autoplay=0&danmaku=0"
-                    scrolling="no"
-                    border="0"
-                    frameborder="no"
-                    framespacing="0"
-                    allowfullscreen="true"
-                    style="width:100%; height:100%; display:block;">
-            </iframe>
-        </div>
-        
-        <!-- 视频元数据（可保留可删） -->
-        <div class="video-meta">
-            <div><span class="stat-dot"></span> 4K · 24fps</div>
-            <div><span class="sep">/</span> H.264</div>
-            <div><span class="sep">/</span> 立体声</div>
-            <div><span class="sep">/</span> 2026.03</div>
-        </div>
-    </div>
+        <main>
+            <!-- ========== 视频播放区域 ========== -->
+            <div class="video-player-section">
+                <div class="video-label">
+                    <span class="current">正在播放</span>
+                </div>
 
-    <!-- 下面的视频网格部分保持不变 -->
-    <!-- ... -->
-</main>
-            <!-- 视频列表 —— 冷淡网格 -->
+                <!-- B站嵌入框 -->
+                <div class="video-wrapper">
+                    <iframe 
+                        src="//player.bilibili.com/player.html?isOutside=true&bvid=改成你的B站视频ID&p=1&autoplay=0&danmaku=0"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <!-- 视频元数据（可随意修改或删除） -->
+                <div class="video-meta">
+                    <div><span class="stat-dot"></span> 4K · 24fps</div>
+                    <div><span class="sep">/</span> H.264</div>
+                    <div><span class="sep">/</span> 立体声</div>
+                    <div><span class="sep">/</span> 2026.03</div>
+                </div>
+            </div>
+
+            <!-- ========== 视频列表网格 ========== -->
             <div class="video-grid">
                 <div class="grid-header">
                     <span>所有片段</span>
                     <span class="count">6个项目</span>
                 </div>
 
-                <!-- 视频项 1 -->
-                <div class="video-item" onclick="alert('演示：实际使用时替换为视频切换逻辑')">
+                <!-- 视频项 1（点击可换成其他B站视频） -->
+                <div class="video-item" onclick="<iframe 
+    src="//player.bilibili.com/player.html?bvid=BV1n46nBoE2C&p=1&autoplay=0&danmaku=0&high_quality=1&as_wide=1"
+    allowfullscreen="true"
+    style="border:none; width:100%; height:100%; display:block;">
+</iframe>">
                     <div class="video-thumb"></div>
                     <div class="video-info">
                         <div class="video-title">REJIHUIXIANG_001</div>
@@ -328,7 +324,7 @@
                 </div>
 
                 <!-- 视频项 2 -->
-                <div class="video-item" onclick="alert('演示：实际使用时替换为视频切换逻辑')">
+                <div class="video-item" onclick="changeVideo('改成B站视频ID2')">
                     <div class="video-thumb"></div>
                     <div class="video-info">
                         <div class="video-title">REJIHUIXIANG_002</div>
@@ -337,7 +333,7 @@
                 </div>
 
                 <!-- 视频项 3 -->
-                <div class="video-item" onclick="alert('演示：实际使用时替换为视频切换逻辑')">
+                <div class="video-item" onclick="changeVideo('改成B站视频ID3')">
                     <div class="video-thumb"></div>
                     <div class="video-info">
                         <div class="video-title">素材_海岸线</div>
@@ -346,7 +342,7 @@
                 </div>
 
                 <!-- 视频项 4 -->
-                <div class="video-item" onclick="alert('演示：实际使用时替换为视频切换逻辑')">
+                <div class="video-item" onclick="changeVideo('改成B站视频ID4')">
                     <div class="video-thumb"></div>
                     <div class="video-info">
                         <div class="video-title">素材_结构</div>
@@ -355,7 +351,7 @@
                 </div>
 
                 <!-- 视频项 5 -->
-                <div class="video-item" onclick="alert('演示：实际使用时替换为视频切换逻辑')">
+                <div class="video-item" onclick="changeVideo('改成B站视频ID5')">
                     <div class="video-thumb"></div>
                     <div class="video-info">
                         <div class="video-title">REJIHUIXIANG_005</div>
@@ -364,7 +360,7 @@
                 </div>
 
                 <!-- 视频项 6 -->
-                <div class="video-item" onclick="alert('演示：实际使用时替换为视频切换逻辑')">
+                <div class="video-item" onclick="changeVideo('改成B站视频ID6')">
                     <div class="video-thumb"></div>
                     <div class="video-info">
                         <div class="video-title">未命名_06</div>
@@ -380,12 +376,19 @@
         </footer>
     </div>
 
-    <!-- 一段非常克制的控制台礼貌 -->
     <script>
-        // 安静地提醒：页面仅作结构演示，视频文件需自行替换
-        console.log('高冷但不傻子 · 视频页面。替换 # 为实际视频路径即可。');
+        // 切换视频函数：点击网格中的视频项，更换主播放器的B站视频ID
+        function changeVideo(bvid) {
+            const iframe = document.querySelector('.video-wrapper iframe');
+            // 替换src中的bvid参数
+            let src = iframe.src;
+            // 简单替换（适用于当前参数格式）
+            src = src.replace(/bvid=[^&]+/, 'bvid=' + bvid);
+            iframe.src = src;
+        }
+
+        // 安静的控制台提醒
+        console.log('高冷但不傻子 · 视频页面。请修改B站视频ID。');
     </script>
-</body>
-</html>
 </body>
 </html>
